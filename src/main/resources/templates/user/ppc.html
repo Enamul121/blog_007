@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <th:block th:include="fragments/header :: head"> </th:block>
+</head>
+<body>
+<div class="container">
+    <br>
+
+    <nav>
+        <th:block th:replace="fragments/nav :: nav"></th:block>
+    </nav>
+
+<br>
+    <h1>BLOG  PPC</h1><br>
+<p>
+    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+    Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+    nascetur ridiculus mus. Donec quam felis
+</p>
+
+
+    <br>
+    <div sec:authorize="hasRole('USER')">Text visible to user.  >> Peep</div>
+    <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
+    <div sec:authorize="isAuthenticated()">Text visible only to
+        authenticated users.</div>
+    Authenticated username:
+    <div sec:authentication="name"></div>
+    Authenticated user roles:
+    <div sec:authentication="principal.authorities"></div>
+    <br>
+
+
+<br>
+
+    <button type="button" class="btn btn-link"><a href="/" th:href="@{/}"> Go Home </a></button>
+    <form method="post"  th:action="@{/user/logout}">
+    <button type="submit" class="btn btn-link"> Logout </button>
+    </form>
+
+
+    <footer>
+<th:block th:include="fragments/footer :: footer"></th:block>
+    </footer>
+
+</div>
+</body>
+</html>

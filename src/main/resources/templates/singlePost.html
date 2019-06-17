@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <th:block th:include="fragments/header :: head"> </th:block>
+</head>
+<body>
+<div class="container">
+    <br>
+
+    <nav>
+        <th:block th:replace="fragments/nav :: nav"></th:block>
+    </nav>
+    <br>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div class="starter-template panel" th:each="post : ${post}">
+                <div class="panel-heading">
+                    <h1><a th:text="${post.title}">Title</a></h1>
+                    <div th:text="'Created: ' + ${#dates.format(post.createdate, 'dd-MMM-yyyy')} + ' by '">
+                        Created by
+                    </div>
+                    <div><a th:text="${post.user.getFirstname()}" th:href="@{'/blog/' + ${post.user.getFirstname()}}">User</a>
+                    </div>
+                </div>
+                <h5 class="panel-body" th:text="${post.body}">Body</h5>
+            </div>
+            <nav class="navbar navbar-light bg-light col-md-3" sec:authorize="isAuthenticated()" th:if="${userEmail}">
+                <a class="btn btn-primary" th:href="@{/post/edit/__${post.id}__}"  role="button" >Edit Post</a>
+                <a class="btn btn-danger" th:href="@{/post/delete/__${post.id}__}"  role="button" >Delete</a>
+            </nav>
+        </div>
+    </div>
+
+    <h4>Comments:</h4>
+    <div class="alert alert-danger col-md-6" role="alert"  sec:authorize="!isAuthenticated()">
+        You Need to Login to write and see Comments
+    </div>
+
+   <!-- th:action="@{/post/createComment}"-->
+
+
+    <form class="form col-md-12 comment_form"  sec:authorize="isAuthenticated()"
+         method="post">
+      <!--  <input type="hidden" th:field="*{post}" th:value="${post.id}">
+        <input type="hidden" th:field="*{user}" th:value="${post.user.id}">-->
+        <textarea class="form-control" placeholder="Write your comments here.." rows="2" width="100%"></textarea>
+        <button type="submit" class="btn btn-primary">Comment</button>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer>
+        <th:block th:include="fragments/footer :: footer"></th:block>
+    </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="fragments/header :: head"> </th:block>
+</head>
+<body>
+<div class="container">
+    <br>
+    <nav>
+        <th:block th:replace="fragments/nav :: nav"></th:block>
+    </nav>
+    <br>
+    <h3 align="center">Create Post </h3>
+    <hr>
+    <form class="form-horizontal" role="form" method="POST" th:action="@{/user/createPost}" th:object="${post}">
+        <input type="hidden" th:field="*{user}"/>
+        <input type="hidden" th:field="*{id}"/>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="title"> Title</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <input type="text" th:field="*{title}" class="form-control" id="title"
+                               placeholder="Post Title Goes Here ......." required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="body">Content </label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-pencil"></i></div>
+                        <textarea type="text" th:field="*{body}" class="form-control" id="body"
+                                  placeholder="Write your post Here.........." required autofocus></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"></div>
+                        <button type="submit" class="btn btn-success"> Create</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </form>
+
+    <footer>
+        <th:block th:include="fragments/footer :: footer"></th:block>
+    </footer>
+
+</div>
+</body>
+</html>
